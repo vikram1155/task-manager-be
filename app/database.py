@@ -1,10 +1,18 @@
+import os
 from motor.motor_asyncio import AsyncIOMotorClient
+from dotenv import load_dotenv
 
-MONGO_URI = "mongodb+srv://markiv1155:uYtcWllGBy3NSdGf@taskmanagerdb.q8uso.mongodb.net/?retryWrites=true&w=majority&appName=TaskManagerDB"
+# Load environment variables from .env file
+load_dotenv()
 
+# Get MongoDB URI from environment variables
+MONGO_URI = os.getenv("DATABASE_URL")
+
+# Connect to the database
 client = AsyncIOMotorClient(MONGO_URI)
-db = client["TaskManagerDB"]  # Database Name
+db = client["TaskManagerDB"]
 
+# Collections
 team_members_collection = db.get_collection("teamMembers")
 tasks_collection = db.get_collection("allTasks")
 users_collection = db.get_collection("users")
